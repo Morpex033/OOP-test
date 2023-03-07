@@ -1,3 +1,5 @@
+package org.example.sharipov.models;
+
 public class HourWorker implements IWorker {
     private int id;
     private double pay;
@@ -13,6 +15,7 @@ public class HourWorker implements IWorker {
     public int getId() {
         return id;
     }
+
     @Override
     public void setId(int id) {
         this.id = id;

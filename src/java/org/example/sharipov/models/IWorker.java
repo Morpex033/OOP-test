@@ -1,3 +1,5 @@
+package org.example.sharipov.models;
+
 public interface IWorker {
 
     int getId();

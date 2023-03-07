@@ -1,8 +1,14 @@
+package org.example.sharipov;
+
+import org.example.sharipov.database.WorkerList;
+import org.example.sharipov.models.FixedWorker;
+import org.example.sharipov.models.HourWorker;
+
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        WorkerList workerList = new WorkerList(generateHourWorker(10),generateFixedWorker(10),5);
+        WorkerList workerList = new WorkerList(generateHourWorker(10), generateFixedWorker(10), 5);
         System.out.println("--------------------------------------------------------------------------");
         workerList.sortById();
         for (int i = 0; i < 3; i++) {

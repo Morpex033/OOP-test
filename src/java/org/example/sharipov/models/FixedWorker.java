@@ -1,4 +1,6 @@
-public class FixedWorker implements IWorker{
+package org.example.sharipov.models;
+
+public class FixedWorker implements IWorker {
     private int id;
     private double pay;
     private String name;
@@ -7,6 +9,7 @@ public class FixedWorker implements IWorker{
     public int getId() {
         return id;
     }
+
     @Override
     public void setId(int id) {
         this.id = id;
@@ -30,7 +33,7 @@ public class FixedWorker implements IWorker{
 
     @Override
     public double payroll(int day) {
-        return (pay*day)/20.8;
+        return (pay * day) / 20.8;
     }
 
     public FixedWorker(int id, double pay, String name) {

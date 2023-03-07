@@ -1,7 +1,12 @@
+package org.example.sharipov.database;
+
+import org.example.sharipov.models.FixedWorker;
+import org.example.sharipov.models.HourWorker;
+import org.example.sharipov.models.IWorker;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class WorkerList {
 
