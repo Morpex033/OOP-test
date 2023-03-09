@@ -7,17 +7,18 @@ import org.example.sharipov.models.HourWorker;
 import java.util.*;
 
 public class Main {
+    private static final Random random = new Random();
+
     public static void main(String[] args) {
-        WorkerList workerList = new WorkerList(generateHourWorker(10), generateFixedWorker(10), 5);
+        WorkerList workerList = new WorkerList(generateHourWorker(1000), generateFixedWorker(1000), 5);
         System.out.println("--------------------------------------------------------------------------");
         workerList.sortById();
         for (int i = 0; i < 3; i++) {
-            System.out.println(workerList.get(i));
+            System.out.println(workerList.get(workerList.size() - 1 - i));
         }
     }
 
     public static List<HourWorker> generateHourWorker(int size) {
-        Random random = new Random();
         String[] name = {"Robert", "Julia", "Martin", "Bob", "Kleiner", "Chak", "Jacob", "William", "Michael"};
         List<HourWorker> result = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -28,7 +29,6 @@ public class Main {
     }
 
     public static List<FixedWorker> generateFixedWorker(int size) {
-        Random random = new Random();
         String[] name = {"Robert", "Julia", "Martin", "Bob", "Kleiner", "Chak", "Jacob", "William", "Michael"};
         List<FixedWorker> result = new ArrayList<>();
         for (int i = 0; i < size; i++) {

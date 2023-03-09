@@ -2,71 +2,64 @@ package org.example.sharipov.database;
 
 import org.example.sharipov.models.FixedWorker;
 import org.example.sharipov.models.HourWorker;
-import org.example.sharipov.models.IWorker;
+import org.example.sharipov.models.Worker;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class WorkerList {
 
-    private static List<IWorker> workerList;
+    private static List<Worker> list;
 
-    public IWorker get(int index) {
-        return workerList.get(index);
+    private static int counter;
+    private static final int day = 31;
+
+    public Worker get(int index) {
+        return list.get(index);
+    }
+
+    public int size() {
+        return list.size();
     }
 
     public WorkerList(List<HourWorker> hourWorkerList, List<FixedWorker> fixedWorkerList, int size) {
-        this.workerList = workerList(hourWorkerList, fixedWorkerList, size);
-
+        list = workerList(hourWorkerList, fixedWorkerList);
+        sortByPayroll(day);
+        for (int i = size; i > 0; i--) {
+            System.out.println(list.get(i).toString());
+        }
     }
 
 
-    public static List<IWorker> workerList(List<HourWorker> hourWorkerList, List<FixedWorker> fixedWorkerList, int size) {
-        int day = 31;
-        int id = 0;
-        IWorker temp = null;
-        List<IWorker> workerList = new ArrayList<>();
+    public static List<Worker> workerList(List<HourWorker> hourWorkerList, List<FixedWorker> fixedWorkerList) {
+        List<Worker> workerList = new ArrayList<>();
         for (HourWorker worker : hourWorkerList) {
-            worker.setId(id++);
+            worker.setId(counter++);
             workerList.add(worker);
         }
         for (FixedWorker worker : fixedWorkerList) {
-            worker.setId(id++);
+            worker.setId(counter++);
             workerList.add(worker);
-        }
-        sortByPayroll(workerList, day);
-        for (int i = 0; i < size; i++){
-            System.out.println(workerList.get(i).toString());
         }
         return workerList;
     }
 
-    public static void sortByPayroll(List<IWorker> list, int day) {
-        boolean temp = false;
-        while (!temp) {
-            temp = true;
-            for (int i = 0; i < list.size() - 1; i++) {
-                if (list.get(i).payroll(day) < list.get(i + 1).payroll(day)) {
-                    temp = false;
-
-                    Collections.swap(list, i, i + 1);
-                }
-            }
+    public static void sortByPayroll(int day) {
+        long testTime = System.currentTimeMillis();
+        for (int i = 0; i < WorkerList.list.size(); i++) {
+            Comparator<Worker> comparator = Comparator.comparing(worker -> worker.payroll(day));
+            list.sort(comparator);
         }
+        System.err.println("Сортировка по выплатам завершена за: " + ((double) System.currentTimeMillis() - testTime) / 1000);
     }
 
     public void sortById() {
-        boolean temp = false;
-        while (!temp) {
-            temp = true;
-            for (int i = 0; i < workerList.size() - 1; i++) {
-                if (workerList.get(i).getId() < workerList.get(i + 1).getId()) {
-                    temp = false;
-
-                    Collections.swap(workerList, i, i + 1);
-                }
-            }
+        long testTime = System.currentTimeMillis();
+        for (int i = 0; i < list.size(); i++) {
+            Comparator<Worker> comparator = Comparator.comparing(worker -> worker.getId());
+            list.sort(comparator);
         }
+        System.err.println("Сортировка по ID завершена за: " + ((double) System.currentTimeMillis() - testTime) / 1000);
     }
 }
